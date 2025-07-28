@@ -1,0 +1,128 @@
+/* WishList*/
+
+
+/* WatchList container box */
+.watchlist-container {
+  width: 480px;
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+/* Search box wrapper */
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  margin-top: 20px;
+}
+
+/* Input search bar */
+.search {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* Number of items */
+.counts {
+  margin-left: 10px;
+  font-weight: bold;
+  background-color: #f0f0f0;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+/* The list and items */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  padding: 10px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.item:hover {
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+/* Items Align */
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.item-left p {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.item-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.price {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.percent {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.red {
+  color: #e53935;
+}
+
+.green {
+  color: #43a047;
+}
+
+.down {
+  color: #e53935;
+  font-size: 18px;
+}
+
+.up {
+  color: #43a047;
+  font-size: 18px;
+}
+
+
+/* Dashboard */
+
+
+.dashboard-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 25px;
+  padding: 20px;
+  margin-top: 50px;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  min-height: 400px; /* Optional: ensures content isn't too small */
+}
