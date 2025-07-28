@@ -123,20 +123,20 @@ const app = express();
 //     },
 //   ];
 
-  tempHoldings.forEach((item) => {
-    let newHolding = new HoldingsModel({
-      name: item.name,
-      qty: item.qty,
-      avg: item.avg,
-      price: item.price,
-      net: item.net,
-      day: item.day,
-    });
+//   tempHoldings.forEach((item) => {
+//     let newHolding = new HoldingsModel({
+//       name: item.name,
+//       qty: item.qty,
+//       avg: item.avg,
+//       price: item.price,
+//       net: item.net,
+//       day: item.day,
+//     });
 
-    newHolding.save();
-  });
-  res.send("Done!");
-});
+//     newHolding.save();
+//   });
+//   res.send("Done!");
+// });
 
 app.listen(PORT, () => {
   console.log("app started");
