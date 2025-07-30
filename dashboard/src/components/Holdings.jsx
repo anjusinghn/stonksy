@@ -1,7 +1,22 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
+import axios from 'axios';
+
 import { holdings } from '../data/data';
 
 function Holdings() {
+    const [allHoldings, setAllHoldings] = useState([]);
+
+    useEffect(() => {
+        axios.get("http://localhost:3002/allHoldings")
+            .then((res) => {
+                console.log(res.data);
+                setAllHoldings(res.data);
+            })
+            .catch((err) => {
+                console.error("Error fetching holdings:", err);
+            });
+    }, []);
+
     return (
         <div style={{
             display: 'flex',
@@ -17,7 +32,7 @@ function Holdings() {
                     marginBottom: '16px',
                     color: '#333'
                 }}>
-                    Holdings ({holdings.length})
+                    Holdings ({allHoldings.length})
                 </h3>
 
                 <div style={{
@@ -45,7 +60,7 @@ function Holdings() {
                             </tr>
                         </thead>
                         <tbody>
-                            {holdings.map((stock, index) => {
+                            {allHoldings.map((stock, index) => {
                                 const curValue = stock.price * stock.qty;
                                 const isProfit = curValue - stock.avg * stock.qty >= 0;
                                 const profitColor = isProfit ? '#10b981' : '#ef4444'; // green or red
