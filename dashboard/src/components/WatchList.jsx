@@ -3,6 +3,7 @@ import { watchlist } from '../data/data';
 import '../index.css';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { Tooltip,Grow } from '@mui/material';
 
 const WatchList = () => {
     return (
@@ -32,10 +33,17 @@ export default WatchList;
 const WatchListItem = ({ stock }) => {
     const [showWatchlistActions, setShowWatchlistActions] = useState(false);
 
+    const handleMenuEnter = (e) => {
+        setShowWatchlistActions(true);
+    }
+
+    const handleMouseExit = (e) => {
+        setShowWatchlistActions(false);
+    }
     return (
         <li
-            onMouseEnter={() => setShowWatchlistActions(true)}
-            onMouseLeave={() => setShowWatchlistActions(false)}
+            onMouseEnter= {handleMenuEnter}
+            onMouseLeave={handleMouseExit}
         >
             <div className="item">
                 <div className="item-left">
@@ -53,7 +61,34 @@ const WatchListItem = ({ stock }) => {
                     <span className="price">{stock.price}</span>
                 </div>
             </div>
-
+            {showWatchlistActions && <WatchListActions uid={stock.name}/>}
         </li>
-    );
+    );    
 };
+
+const WatchListActions = ({uid}) => {
+    return(
+        <span className='actions'>
+            <span>
+                <Tooltip title="Buy (B)" placement='top' arrow TransitionComponent={Grow}>
+                    <button>Buy</button>
+                </Tooltip>
+            </span>
+            <span>
+                <Tooltip title="Sell (S)" placement='top' arrow TransitionComponent={Grow}>
+                    <button>Sell</button>
+                </Tooltip>
+            </span>
+            <span>
+                <Tooltip title="Analytics (A)" placement='top' arrow TransitionComponent={Grow}>
+                    <button>Analytics</button>
+                </Tooltip>
+            </span>
+            <span>
+                <Tooltip title="More Options (M)" placement='top' arrow TransitionComponent={Grow}>
+                    <button>More</button>
+                </Tooltip>
+            </span>
+        </span>
+    )
+}
