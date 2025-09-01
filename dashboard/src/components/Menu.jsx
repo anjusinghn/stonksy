@@ -10,7 +10,7 @@ const Menu = () => {
     };
 
     const menuItems = [
-        { label: 'Dashboard', path: '/dashboard' },
+        { label: 'Dashboard', path: '/' },
         { label: 'Orders', path: '/orders' },
         { label: 'Holdings', path: '/holdings' },
         { label: 'Positions', path: '/positions' },

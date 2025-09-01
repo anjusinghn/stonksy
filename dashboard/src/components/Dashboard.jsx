@@ -7,14 +7,17 @@ import Holdings from './Holdings';
 import Positions from './Positions';
 import Funds from './Funds';
 import Apps from './Apps';
+import BuyActionWindow from './BuyActionWindow';
 
 function Dashboard() {
     return ( 
         <div className="dashboard-container"> {/* spelling fixed */}
             <WatchList />
+            {/* <BuyActionWindow /> */}
             <div className="dashboard-content">
                 <Routes>
                     <Route path="/" element={<Summary />} />
+                    <Route path="/dashboard" element={<Summary />} />
                     <Route path="/orders" element={<Orders />} />
                     <Route path="/holdings" element={<Holdings />} />
                     <Route path='/positions' element={<Positions />} />
