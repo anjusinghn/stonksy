@@ -7,6 +7,7 @@ const cors = require("cors");
 
 const { HoldingsModel } = require("./model/HoldingsModel");
 const { PositionsModel } = require("./model/PositionsModel");
+const { OrderModel } = require("./model/OrderModel");
 
 const PORT = process.env.PORT || 3002;
 const uri = process.env.MONGO_URL;
@@ -15,6 +16,14 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+
+// Error handling middleware for JSON parsing errors
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    return res.status(400).send({ message: 'Invalid JSON in request body' });
+  }
+  next();
+});
 
 // app.get("/addHoldings", async (req, res) => {
 //   let tempHoldings = [
@@ -194,6 +203,22 @@ app.get('/allHoldings', async (req, res) => {
 app.get('/allPositions', async (req, res) => {
     let allPositions = await PositionsModel.find({});
     res.json(allPositions);
+})
+
+app.post('/newOrder', async(req,res)=>{
+  if (!req.body || typeof req.body !== 'object') {
+    return res.status(400).json({ message: 'Invalid request body' });
+  }
+
+  let newOrder = new OrderModel({
+    name: req.body.name,
+    qty: req.body.qty,
+    price: req.body.price,
+    mode: req.body.mode,
+  });
+
+  newOrder.save();
+  res.send("Order Saved");
 })
 
 app.listen(PORT, () => {

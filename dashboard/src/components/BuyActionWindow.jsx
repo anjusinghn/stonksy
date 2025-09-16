@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
-const BuyActionWindow = ({ onClose, onBuy }) => {
-    const [qty, setQty] = useState('');
-    const [price, setPrice] = useState('');
+const BuyActionWindow = ({ uid, onClose }) => { // Add onClose prop
+    const [qty, setQty] = useState(1);
+    const [price, setPrice] = useState(0.0);
 
     const handleBuy = () => {
-        if (qty && price) {
-            onBuy({ qty: Number(qty), price: Number(price) });
-            onClose();
-        }
+        axios.post('http://localhost:3002/newOrder', {
+            name: uid,
+            qty: qty,
+            price: price,
+            mode: "BUY",
+        })
+        .then(() => {
+            onClose(); // Close after successful API call
+        })
+        .catch((error) => {
+            console.error('Order failed:', error);
+            // Optional: show error message to user
+        });
     };
 
     return (
@@ -31,14 +41,14 @@ const BuyActionWindow = ({ onClose, onBuy }) => {
                 flexDirection: 'column',
                 gap: '16px'
             }}>
-                <h3 style={{ margin: 0, fontSize: '18px', color: '#333' }}>Buy Stock</h3>
+                <h3 style={{ margin: 0, fontSize: '18px', color: '#333' }}>Buy {uid}</h3> {/* Show stock name */}
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     <label style={{ fontSize: '14px', color: '#555' }}>Quantity</label>
                     <input
                         type="number"
                         value={qty}
-                        onChange={(e) => setQty(e.target.value)}
+                        onChange={(e) => setQty(Number(e.target.value))}
                         placeholder="Enter quantity"
                         style={{
                             padding: '8px 12px',
@@ -53,7 +63,7 @@ const BuyActionWindow = ({ onClose, onBuy }) => {
                     <input
                         type="number"
                         value={price}
-                        onChange={(e) => setPrice(e.target.value)}
+                        onChange={(e) => setPrice(Number(e.target.value))}
                         placeholder="Enter price"
                         style={{
                             padding: '8px 12px',
@@ -67,7 +77,7 @@ const BuyActionWindow = ({ onClose, onBuy }) => {
 
                 <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
                     <button
-                        onClick={onClose}
+                        onClick={onClose} // Now this will work
                         style={{
                             padding: '8px 16px',
                             backgroundColor: '#e5e7eb',
